@@ -7,6 +7,7 @@ import (
 	"github.com/markphelps/optional"
 	"io"
 	"os"
+	"todo_cli/main/cmd/utils"
 )
 
 func LastId(dstFileName string) (int, error) {
@@ -63,12 +64,7 @@ func Add(todo Todo, dstFileName string) error {
 
 	todos = append(todos, todo)
 
-	_, err = fi.Seek(0, 0)
-	if err != nil {
-		return err
-	}
-
-	err = fi.Truncate(0)
+	err = utils.FileClear(fi)
 	if err != nil {
 		return err
 	}
@@ -115,12 +111,7 @@ func MakeDone(id int, dstFileName string) error {
 		}
 	}
 
-	_, err = fi.Seek(0, 0)
-	if err != nil {
-		return err
-	}
-
-	err = fi.Truncate(0)
+	err = utils.FileClear(fi)
 	if err != nil {
 		return err
 	}
@@ -192,12 +183,7 @@ func Update(id int, dstFileName string, desc, state optional.String) error {
 		}
 	}
 
-	_, err = fi.Seek(0, 0)
-	if err != nil {
-		return err
-	}
-
-	err = fi.Truncate(0)
+	err = utils.FileClear(fi)
 	if err != nil {
 		return err
 	}
